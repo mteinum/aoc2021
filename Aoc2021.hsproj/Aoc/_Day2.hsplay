@@ -1,0 +1,14 @@
+-- Haskell Playground 1.0
+solve1 (0,0) (map words test)
+
+part1
+
+
+move' ["forward","5"] (0,0,0)
+move' ["down","5"] (5,0,0)
+move' ["forward","8"] (5,0,5)
+move' ["up","3"] (13,40,5)
+move' ["down","8"] (13,40,2)
+move' ["forward","2"] (13,40,10)
+
+part2
