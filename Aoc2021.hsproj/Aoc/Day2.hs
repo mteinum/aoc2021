@@ -1,3 +1,7 @@
+-- AoC 2021
+-- Day 2: Dive!
+-- https://adventofcode.com/2021/day/2
+
 module Day2 where
 
 test = [
@@ -9,30 +13,49 @@ test = [
  "forward 2"
  ]
 
-move1 :: [String] -> (Int,Int) -> (Int,Int)
-move1 ["forward",n] (pos,depth) = (pos + read n, depth)
-move1 ["up",n]      (pos,depth) = (pos, depth - read n)
-move1 ["down",n]    (pos,depth) = (pos, depth + read n)
+parse :: [String] -> (String, Int)
+parse [command, x] = (command, read x)
 
-solve1 :: (Int, Int) -> [[String]] -> Int
+test' = map parse . map words $ test
+
+fileContent :: IO [(String, Int)]
+fileContent = do
+  content <- readFile("input_day2.txt")
+  return (map parse . map words . lines $ content)
+
+--
+-- Part One
+--
+
+move1 :: (String, Int) -> (Int,Int) -> (Int,Int)
+move1 ("forward", n) (pos, depth) = (pos + n, depth)
+move1 ("up",      n) (pos, depth) = (pos, depth - n)
+move1 ("down",    n) (pos, depth) = (pos, depth + n)
+
+solve1 :: (Int, Int) -> [(String, Int)] -> Int
 solve1 (a,b) [] = a * b
 solve1 state (x:xs) = solve1 (move1 x state) xs
 
+part1 :: IO Int
 part1 = do
-  content <- readFile("input_day2.txt")
-  let result = solve1 (0,0) . map words . lines $ content
-  return result
+  content <- fileContent
+  return (solve1 (0,0) content)
 
-move' :: [String] -> (Int,Int,Int) -> (Int,Int,Int)
-move' ["down",n]    (pos, depth, aim) = (pos, depth, aim + read n)
-move' ["up",n]      (pos, depth, aim) = (pos, depth, aim - read n)
-move' ["forward",n] (pos, depth, aim) = (pos + read n, depth + aim * read n, aim)
+--
+-- Part Two
+--
 
-solve2 :: (Int, Int, Int) -> [[String]] -> Int
-solve2 (pos, depth, aim) [] = pos * depth
+move' :: (String, Int) -> (Int,Int,Int) -> (Int,Int,Int)
+move' ("down",    n) (pos, depth, aim) = (pos, depth, aim + n)
+move' ("up",      n) (pos, depth, aim) = (pos, depth, aim - n)
+move' ("forward", n) (pos, depth, aim) = (pos + n, depth + aim * n, aim)
+
+solve2 :: (Int, Int, Int) -> [(String, Int)] -> Int
+solve2 (pos, depth, _) [] = pos * depth
 solve2 state (x:xs) = solve2 (move' x state) xs
 
+part2 :: IO Int
 part2 = do
-  content <- readFile("input_day2.txt")
-  let result = solve2 (0,0,0) . map words . lines $ content
-  return result
+  content <- fileContent
+  return (solve2 (0,0,0) content)
+  

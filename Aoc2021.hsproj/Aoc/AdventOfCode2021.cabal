@@ -8,8 +8,8 @@ category: advent calendar
 x-ghc-framework-version: 8.6.4-13.14-3
 x-last-ide-version: HfM1.8.2
 data-files:
-    input_day2.txt
     input_day1.txt
+    input_day2.txt
 
 executable Aoc
     main-is: Day1.hs
