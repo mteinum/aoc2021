@@ -4,6 +4,9 @@
 
 module Day2 where
 
+import System.Directory
+import Aoc.File
+
 test = [
  "forward 5",
  "down 5",
@@ -20,7 +23,7 @@ test' = map (parse . words) test
 
 fileContent :: IO [(String, Int)]
 fileContent = do
-  content <- readFile "input_day2.txt"
+  content <- readAocFile "input_day2.txt"
   return (map (parse . words) . lines $ content)
 
 --
@@ -56,4 +59,9 @@ solve2 state (x:xs) = solve2 (move' x state) xs
 part2 :: IO Int
 part2 = do
   solve2 (0,0,0) <$> fileContent
-  
+
+{-|
+
+>>> part2
+
+-}
