@@ -8,12 +8,14 @@ category: advent calendar
 x-ghc-framework-version: 8.6.4-13.14-3
 x-last-ide-version: HfM1.8.2
 data-files:
-    input_day1.txt
     input_day2.txt
+    input_day3.txt
+    input_day1.txt
 
 executable Aoc
     main-is: Day1.hs
     other-modules:
+        Day3
         Day2
     default-language: Haskell2010
     build-depends:
