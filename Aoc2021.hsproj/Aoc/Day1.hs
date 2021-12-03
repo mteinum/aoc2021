@@ -1,4 +1,4 @@
-import Data.List.Split
+module Day1 where
 
 depths = [199,
   200,
@@ -11,7 +11,6 @@ depths = [199,
   260,
   263]
 
-
 part1 :: Int -> Int -> [Int] -> Int
 part1 state prev [] = state
 part1 state prev (x:xs)
@@ -23,12 +22,11 @@ part1_ (x:xs) = part1 0 x (x:xs)
 
 readFileIntLines :: IO [Int]
 readFileIntLines = do
-  content <- readFile("input_day1.txt")
+  content <- readFile "input_day1.txt"
   return (map read . lines $ content)
 
 solve1 :: IO Int
 solve1 = do
   content <- readFileIntLines
   let answer = part1_ content
-  return (answer)
-
+  return answer
