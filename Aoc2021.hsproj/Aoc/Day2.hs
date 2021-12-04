@@ -5,7 +5,7 @@
 module Day2 where
 
 import System.Directory
-import Aoc.File
+import File
 
 test = [
  "forward 5",
