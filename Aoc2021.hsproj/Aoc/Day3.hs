@@ -16,9 +16,13 @@ test = [
     "01010"
     ]
 
-
 extract :: Int->[String]->[Char]
-extract index = map (\x -> x !! index)
+extract index = map (!! index)
+
+{-|
+>>> extract 0 test
+"011110011100"
+-}
 
 count :: (Int,Int) -> [Char] -> (Int,Int)
 count state [] = state
@@ -35,7 +39,7 @@ leastCommonBit (zero, one)
   | zero > one = '1'
   | one > zero = '0'
 
-maxIndex = length (test !! 0)
+maxIndex = length . head $ test
 
 bin2dec :: String -> Integer
 bin2dec = foldr (\c s -> s * 2 + c) 0 . reverse . map c2i
